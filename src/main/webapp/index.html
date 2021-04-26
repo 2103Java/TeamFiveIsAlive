@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpenseReport</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class = "main">
+        <nav>
+            <div class = "brand">
+                ExpenseReport
+            </div>
+            <div class = "nav-links">
+                <ul>
+                    <li><a1 href = "#" style="display:none;">Log Out</a1></li>
+                    <li><a href = "#">Options</a></li>
+                    <li><a href = "#">Account</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class = "centerPanel">
+            <div class = "centerPanelHeader"></div>
+            <div class = "centerPanelLeft"></div>
+            <div class = "centerPanelMiddle">
+                
+                <div class = "loginPanel" id = "loginPanel" style="display:none;">
+                    <div class = "middlePanelHeader">
+                        <h1>Enter Login</h1>
+                    </div>
+                    <div class = "emailTextbox">
+                        <input type = "text" id = "loginInputEmail" placeholder = "example@email.com" class = "form-control">
+                    </div>
+                    <div class = "passwordTextbox">
+                        <input type = "password" id = "loginInputPassword" placeholder = "Password" class = "form-control">
+                    </div>
+                    <div class = "submitUserInfoButton">
+                        <input type = "button" id = "loginButton" value = "Login" class = "form_control btn btn-info" onclick = "login()">
+                    </div>
+                    <div class = "createAccountButton">
+                        <h5>New User?</h5>
+                        <input type = "button" id = "createAccountButton" value = "Create Account" class = "form_control btn btn-info" onclick = "showCreateAccountPanel()">
+                    </div>
+                </div>
+    
+                <div class = "createAccountPanel" id = "createAccountPanel" style="display:none;">
+                    <div class = "middlePanelHeader">
+                        <h1>Create Account</h1>
+                    </div>
+                    <div class = "accountCreationInfo">
+                        <label id = "createAccountInfoLabel"></label>
+                    </div>
+                    <div class = "emailTextbox">
+                        <input type = "text" id = "loginInputEmail" placeholder = "example@email.com" class = "form-control">
+                    </div>
+                    <div class = "passwordTextbox">
+                        <input type = "password" id = "loginInputPassword" placeholder = "Password" class = "form-control">
+                    </div>
+                    <div class = "submitUserInfoButton">
+                        <input type = "button" id = "loginButton" value = "Login" class = "form_control btn btn-info" onclick = "login()">
+                    </div>
+                </div>
+    
+                <div class = "userLandingPanel" id = "userLandingPanel" style="display:none;">
+                    <div class = "middlePanelHeader">
+                        <h1>Ticket Application</h1>
+                    </div>
+                    <div class = "middlePanelLeft">
+                        <h5>Your Recent Tickets</h5>
+                        <div class = "ticketAppTextarea">
+                            <textarea readonly id = "ticketsTextarea" placeholder = "No Recent Tickets..." rows="15" cols="30"></textarea>
+                        </div>
+                    </div>
+                    <div class = "middlePanelRight" id = "middlePanelRight">
+                        <h5>New Ticket</h5>
+                        <div class = "ticketAppInputDiv">
+                            <label for = "ticketAppDate">Date: </label>
+                            <input type = "date" id = "ticketAppDate" placeholder = "Date" class = "form-control">
+                        </div>
+                        <div class = "ticketAppInputDiv">
+                            <label for = "ticketAppAmount">Amount: </label>
+                            <input type = "text" id = "ticketAppAmount" placeholder = "Amount" class = "form-control">
+                        </div>
+                        <div class = "ticketAppInputDiv">
+                            <label for = "ticketAppType">Type: </label>
+                            <select name = "ticketAppType" id = "ticketAppType">
+                                <option value = "" selected disabled hidden>-Select Type-</option>
+                                <option value = "lodging">Lodging</option>
+                                <option value = "travel">Travel</option>
+                                <option value = "food">Food</option>
+                                <option value = "other">Other</option>
+                            </select>
+                        </div>
+                        <div class = "ticketAppDescripDiv">
+                            <label for = "ticketAppDescrip">Description: </label>
+                            <textarea id = "ticketAppDescrip" placeholder = "Description..." rows = "4" cols = "20"></textarea>
+                        </div>
+                        <div>
+                            <input type = "button" id = "submitTicketButton" value = "Submit" class = "form_control btn btn-info" onclick = "login()">
+                        </div>
+                    </div>
+                </div>
+    
+                <div class = "adminLandingPanel" id = "adminLandingPanel">
+                    <div class = "middlePanelHeader">
+                        <h2>Reimbursement Requests</h2>
+                    </div>
+                    <div id = "adminPanelA">
+                        <select name = "selectTicketType" id = "selectTicketType">
+                            <option value = "allTickets">All</option>
+                            <option value = "approved">Approved</option>
+                            <option value = "rejected">Rejected</option>
+                            <option value = "pending">Pending</option>
+                        </select>
+                        <input type = "button" id = "refreshTicketsButton" value = "Refresh" class = "form_control btn btn-info">
+                    </div>
+                    <div class = "table-responsive" id = "adminPanelB">
+                        <table class = "table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope = "col">########</th>
+                                    <th scope = "col">Date</th>
+                                    <th scope = "col">Type</th>
+                                    <th scope = "col">Amount</th>
+                                    <th scope = "col">Descrip</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>0</td>
+                                    <td>4/19/2021</td>
+                                    <td>Lodging</td>
+                                    <td>90.00</td>
+                                    <td>Hotel</td>
+                                </tr>
+                                <tr>
+                                    <td>0</td>
+                                    <td>4/19/2021</td>
+                                    <td>Lodging</td>
+                                    <td>90.00</td>
+                                    <td>Hotel</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id = "adminPanelC">
+                        <input type = "button" id = "approveTicketButton" value = "Approve" class = "form_control btn btn-info">
+                        <input type = "button" id = "rejectTicketButton" value = "Reject" class = "form_control btn btn-info">
+                    </div>
+                </div>
+
+            </div>
+            <div class = "centerPanelRight"></div>
+            <div class = "centerPanelFooter">
+            </div>
+            
+        </div>
+
+    </div>
+
+
+
+
+    <script src="ajax.js"></script>
+</body>
+</html>
