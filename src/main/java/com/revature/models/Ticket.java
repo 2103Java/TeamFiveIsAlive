@@ -1,70 +1,59 @@
 package com.revature.models;
 
 public class Ticket {
+    private int ticketID;
+    private double amount;
+    private String status;
+    private int userID;
+    private String type;
+    private String desc;
 
-	// Variables
-	private String id; // Ticket Number
-	private String owner; // usernames of all owners on the Ticket
-	private String descrip;
-	private double amount;
-	
-	
-// Methods
-	public Ticket() {
-		
-	}
-	
-	public Ticket(String owner, String descrip, double amount) { // new Ticket
-		this.owner = owner;
-		this.descrip = descrip;
-		this.amount = amount;
-	}
-	
-	public Ticket(String id, String owner, String descrip, double amount) { // load Ticket
-		this.id = id;
-		this.owner = owner;
-		this.descrip = descrip;
-		this.amount = amount;
-	}
-		
-		
-	
-	public boolean verifyOwner(String username) {
-		boolean toReturn = false;
-		
-		if (owner.equals(username)) 
-			toReturn = true; 
-		
-		return toReturn;
-	}
-	
-	// Getters
-	public String getID() {
-		return id;
-	}
-	public String getOwner() {
-		return owner;
-	}
-	public String getDescrip() {
-		return descrip;
-	}
-	public double getAmount() {
-		return amount;
-	}
-	
-	
-	// Setters
-	public void setID(String id) {
-		this.id = id;
-	}
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	public void setDescrip(String descrip) {
-		this.descrip = descrip;
-	}
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
+    public Ticket(int ticketID, double amount, String status, int userID, String type) {
+        this(ticketID, amount, status, userID, type, "");
+    }
 
+    public Ticket(int ticketID, double amount, String status, int userID, String type, String desc) {
+        this.ticketID = ticketID;
+        this.amount = amount;
+        this.status = status;
+        this.userID = userID;
+        this.type = type;
+        this.desc = desc;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void approve() {
+        this.status = "APPROVED";
+    }
+
+    public void reject() {
+        this.status = "REJECTED";
+    }
+
+    public int getTicketID() {
+        return ticketID;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 }
