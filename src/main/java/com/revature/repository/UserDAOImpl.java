@@ -1,9 +1,6 @@
 package com.revature.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.HashSet;
 
 import com.revature.models.User;
@@ -77,9 +74,24 @@ public class UserDAOImpl implements UserDAO {
 		return toReturn;
 
 	}
-	
-	
-// INSERT
+
+	@Override
+	public int selectUserID() {
+		int toReturn = 0;
+		try(Connection conn = ConnectionFactory.getConnection()) {
+			String sql = "SELECT MAX(user_id) FROM users";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			if(rs.next()) {
+				toReturn = rs.getInt(1);
+			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
+		}
+		return toReturn;
+	}
+
+	// INSERT
 	@Override
 	public boolean insertUser(User u) {
 		boolean toReturn = false;

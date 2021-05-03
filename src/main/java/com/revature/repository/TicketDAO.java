@@ -18,4 +18,6 @@ public interface TicketDAO {
     public boolean updateTicket(Ticket a);
 
     public boolean deleteTicket(int ticketID);
+
+    public int selectTicketID();
 }

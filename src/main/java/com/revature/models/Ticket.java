@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import java.sql.Timestamp;
+
 public class Ticket {
     private int ticketID;
     private double amount;
@@ -7,6 +9,7 @@ public class Ticket {
     private int userID;
     private String type;
     private String desc;
+    private String timestamp;
 
     public Ticket(int ticketID, double amount, String status, int userID, String type) {
         this(ticketID, amount, status, userID, type, "");
@@ -55,5 +58,13 @@ public class Ticket {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp.toString();
     }
 }

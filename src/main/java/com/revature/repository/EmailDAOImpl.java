@@ -32,7 +32,9 @@ public class EmailDAOImpl implements EmailDAO {
     @Override
     public int selectUserIDByEmail(String email) {
         int userID = 0;
+        System.out.println("SelectUserIdByEmail");
         try(Connection conn = ConnectionFactory.getConnection()) {
+            System.out.println("Got connection");
             String sql = "SELECT user_id FROM emails WHERE email = (?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, email);

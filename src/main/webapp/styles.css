@@ -1,0 +1,17 @@
+#loginContainer {
+    margin-top: 200px;
+}
+
+.login-input {
+    margin-bottom: 20px;
+}
+
+.icon-big {
+    font-size: 3.5em;
+    margin-bottom: 8px;
+}
+
+body {
+    background-image: url('images/forest.jpg');
+    background-size: cover;
+}

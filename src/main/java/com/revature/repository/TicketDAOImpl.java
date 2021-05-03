@@ -1,9 +1,8 @@
 package com.revature.repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 
 import com.revature.models.Ticket;
@@ -27,6 +26,9 @@ public class TicketDAOImpl implements TicketDAO {
 				String type = rs.getString("ticket_type");
 				String desc = rs.getString("description");
 				toReturn = new Ticket(ticketID, amount, status, userID, type, desc);
+				Timestamp timestamp = rs.getTimestamp("timest");
+				LocalDateTime currentTime = timestamp.toLocalDateTime();
+				toReturn.setTimestamp(currentTime.toString());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -48,7 +50,12 @@ public class TicketDAOImpl implements TicketDAO {
 				int userID = rs.getInt("user_id");
 				String type = rs.getString("ticket_type");
 				String desc = rs.getString("description");
-				toReturn.add(new Ticket(ticketID, amount, status, userID, type, desc));
+				Ticket ticket = new Ticket(ticketID, amount, status, userID, type, desc);
+				Timestamp timestamp = rs.getTimestamp("timest");
+				LocalDateTime currentTime = timestamp.toLocalDateTime();
+				ticket.setTimestamp(currentTime.toString());
+				toReturn.add(ticket);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,7 +79,12 @@ public class TicketDAOImpl implements TicketDAO {
 				String status = rs.getString("status");
 				String type = rs.getString("ticket_type");
 				String desc = rs.getString("description");
-				toReturn.add(new Ticket(ticketID, amount, status, userID, type, desc));
+
+				Ticket ticket = new Ticket(ticketID, amount, status, userID, type, desc);
+				Timestamp timestamp = rs.getTimestamp("timest");
+				LocalDateTime currentTime = timestamp.toLocalDateTime();
+				ticket.setTimestamp(currentTime.toString());
+				toReturn.add(ticket);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,10 +106,31 @@ public class TicketDAOImpl implements TicketDAO {
 				int userID = rs.getInt("user_id");
 				String type = rs.getString("ticket_type");
 				String desc = rs.getString("description");
-				toReturn.add(new Ticket(ticketID, amount, status, userID, type, desc));
+
+				Ticket ticket = new Ticket(ticketID, amount, status, userID, type, desc);
+				Timestamp timestamp = rs.getTimestamp("timest");
+				LocalDateTime currentTime = timestamp.toLocalDateTime();
+				ticket.setTimestamp(currentTime.toString());
+				toReturn.add(ticket);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		return toReturn;
+	}
+
+	@Override
+	public int selectTicketID() {
+		int toReturn = 0;
+		try(Connection conn = ConnectionFactory.getConnection()) {
+			String sql = "SELECT MAX(ticket_id) FROM tickets";
+			Statement statement = conn.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			if(rs.next()) {
+				toReturn = rs.getInt(1);
+			}
+		} catch (SQLException throwables) {
+			throwables.printStackTrace();
 		}
 		return toReturn;
 	}
@@ -109,8 +142,8 @@ public class TicketDAOImpl implements TicketDAO {
 		boolean toReturn = false;
 
 		try(Connection conn = ConnectionFactory.getConnection()) {
-			String sql = "INSERT INTO tickets (ticket_id, amount, status, user_id, ticket_type, description) VALUES " +
-					"(?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO tickets (ticket_id, amount, status, user_id, ticket_type, description, timest) VALUES " +
+					"(?, ?, ?, ?, ?, ?, ?)";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, a.getTicketID());
 			ps.setDouble(2, a.getAmount());
@@ -118,6 +151,7 @@ public class TicketDAOImpl implements TicketDAO {
 			ps.setInt(4, a.getUserID());
 			ps.setString(5, a.getType());
 			ps.setString(6, a.getDesc());
+			ps.setTimestamp(7,  Timestamp.from(Instant.now()));
 
 			ps.execute();
 			toReturn = true;

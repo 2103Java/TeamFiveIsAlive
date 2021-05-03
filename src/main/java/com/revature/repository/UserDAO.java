@@ -14,4 +14,6 @@ public interface UserDAO {
     public boolean updateUser(User u);
 
     public boolean deleteUser(int userID);
+
+    public int selectUserID();
 }

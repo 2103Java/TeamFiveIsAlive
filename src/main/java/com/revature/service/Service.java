@@ -1,141 +1,126 @@
-//package com.revature.service;
-//
-//import java.util.HashSet;
-//
+package com.revature.service;
+
+import java.util.HashSet;
+
+import com.revature.models.Email;
+import com.revature.repository.*;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
-//
-//import com.revature.models.Ticket;
-//import com.revature.models.User;
-//import com.revature.repository.TicketDAOImpl;
-//import com.revature.repository.UserDAOImpl;
-//
-//public class Service {
-//
-//// Variables
-//	private static Logger log = LogManager.getLogger("Service");
-//	private static TicketDAOImpl ticketDAOImpl;
-//	private static UserDAOImpl userDAOImpl;
-//
-//
-//
-//// Methods
-//	public Service() {
-//		ticketDAOImpl = new TicketDAOImpl();
-//		userDAOImpl = new UserDAOImpl();
-//	}
-//
-//	public Service(TicketDAOImpl ticketDAOImpl) {
-//		// TODO Auto-generated constructor stub
-//	}
-//
-//	// Ticket Methods
-//	protected static HashSet<Ticket> getTickets() {
-//		HashSet<Ticket> toReturn = ticketDAOImpl.selectAllTickets();
-//		return toReturn;
-//	}
-//
-//	public static Ticket getTicketByID(int id) {
-//		Ticket toReturn = ticketDAOImpl.selectTicket(id);
-//		return toReturn;
-//	}
-//
-//	protected static void addTicket(Ticket a) {
-//		ticketDAOImpl.insertTicket(a);
-//	}
-//
-//	protected static void saveTicket(Ticket a) {
-//		ticketDAOImpl.updateTicket(a);
-//	}
-//
-//	protected static void removeTicket(Ticket a) {
-//		ticketDAOImpl.deleteTicket(a.getTicketID());
-//	}
-//
-//	protected static HashSet<Ticket> getTicketsByOwner(String username) {
-//		HashSet<Ticket> toReturn = ticketDAOImpl.selectTicketsByOwner(username);
-//		return toReturn;
-//	}
-//
-//	protected static HashSet<Ticket> getTicketsByType(String type) {
-//		HashSet<Ticket> toReturn = ticketDAOImpl.selectTicketsByType(type);
-//		return toReturn;
-//	}
-//
-//	protected static HashSet<Ticket> getTicketsByFlag(String flag) {
-//		HashSet<Ticket> toReturn = ticketDAOImpl.selectTicketsByFlag(flag);
-//		return toReturn;
-//	}
-//
-//	// User Methods
-//	protected static HashSet<User> getUsers() {
-//		HashSet<User> toReturn = userDAOImpl.selectAllUsers();
-//		return toReturn;
-//	}
-//
-//	protected static User getUser(String username) {
-//		User toReturn = null;
-//
-//		toReturn = userDAOImpl.selectUser(username);
-//
-//		return toReturn;
-//	}
-//
-//	protected static void addUser(User u) {
-//		userDAOImpl.insertUser(u);
-//	}
-//
-//	protected static boolean saveUser(User u) {
-//		boolean toReturn = false;
-//
-//		toReturn = userDAOImpl.updateUser(u);
-//
-//		return toReturn;
-//	}
-//
-//	protected static void removeUser(User u) {
-//		userDAOImpl.deleteUser(u.getUserName());
-//	}
-//
-//	protected static boolean verifyPassword(String email, String password) {
-//		boolean toReturn = false;
-//
-//		if(userDAOImpl.verifyPassword(username, password))
-//			toReturn = true;
-//
-//		return toReturn;
-//	}
-//
-//
-//
-//	// Ticket Transactions
-//	// Inquiry
-//	protected static double getBalance(Ticket Ticket) {
-//		log.info("Balance - Ticket: " + Ticket.getID() + ", Balance: $" + Ticket.getBalance());
-//		return Ticket.getBalance();
-//	}
-//
-//	// Withdraw
-//	protected static boolean withdraw(Ticket Ticket, double amount) {
-//		boolean toReturn = false;
-//
-//		if (Ticket.getBalance() >= amount) {
-//			log.info("Withdraw - Ticket: " + Ticket.getID() + ", Old balance: $" + Ticket.getBalance() + ", New Balance: $" + (Ticket.getBalance() - amount));
-//			Ticket.setBalance(Ticket.getBalance() - amount);
-//			ticketDAOImpl.updateTicket(Ticket);
-//			toReturn = true;
-//		}
-//		else
-//			log.info("Withdraw - Ticket: " + Ticket.getID() + ", Old balance: $" + Ticket.getBalance() + ", Transaction Failed: Not enough money to complete transaction");
-//
-//		return toReturn;
-//	}
-//
-//	// Deposit
-//	protected static void deposit(Ticket Ticket, double amount) {
-//		log.info("Deposit - Ticket: " + Ticket.getID() + ", Old balance: $" + Ticket.getBalance() + ", New Balance: $" + (Ticket.getBalance() + amount));
-//		Ticket.setBalance(Ticket.getBalance() + amount);
-//		ticketDAOImpl.updateTicket(Ticket);
-//	}
-//
-//}
+
+import com.revature.models.Ticket;
+import com.revature.models.User;
+
+public class Service {
+
+// Variables
+	//private static Logger log = LogManager.getLogger("Service");
+	private static TicketDAO ticketDAOImpl;
+	private static UserDAO userDAOImpl;
+	private static EmailDAO emailDAOImpl;
+
+
+
+// Methods
+	public Service() {
+		ticketDAOImpl = new TicketDAOImpl();
+		userDAOImpl = new UserDAOImpl();
+		emailDAOImpl = new EmailDAOImpl();
+	}
+
+	// Ticket Methods
+	public HashSet<Ticket> getTickets() {
+		HashSet<Ticket> toReturn = ticketDAOImpl.selectAllTickets();
+		return toReturn;
+	}
+
+	public Ticket getTicketByID(int id) {
+		Ticket toReturn = ticketDAOImpl.selectTicket(id);
+		return toReturn;
+	}
+
+	public void addTicket(Ticket t) {
+		ticketDAOImpl.insertTicket(t);
+	}
+
+	public void saveTicket(Ticket t) {
+		ticketDAOImpl.updateTicket(t);
+	}
+
+	public void removeTicket(Ticket t) {
+		ticketDAOImpl.deleteTicket(t.getTicketID());
+	}
+
+    public boolean updateTicket(Ticket t) {
+        boolean toReturn = ticketDAOImpl.updateTicket(t);
+        return toReturn;
+    }
+
+	public HashSet<Ticket> getTicketsByOwner(int userID) {
+		HashSet<Ticket> toReturn = ticketDAOImpl.selectTicketsByUser(userID);
+		return toReturn;
+	}
+
+	public HashSet<Ticket> getTicketsByType(String status) {
+		HashSet<Ticket> toReturn = ticketDAOImpl.selectTicketsByStatus(status);
+		return toReturn;
+	}
+	public int getNewTicketID() {
+		int ticketID = ticketDAOImpl.selectTicketID();
+		return ticketID + 1;
+	}
+
+
+	// User Methods
+	public HashSet<User> getUsers() {
+		HashSet<User> toReturn = userDAOImpl.selectAllUsers();
+		return toReturn;
+	}
+
+	public User getUser(int userID) {
+		User u = userDAOImpl.selectUserByID(userID);
+		System.out.println("Getting user!");
+		return u;
+	}
+
+	public User getUserByEmail(String email) {
+		System.out.println("getUserByEmail");
+        int userID = emailDAOImpl.selectUserIDByEmail(email);
+        User u = userDAOImpl.selectUserByID(userID);
+        return u;
+    }
+
+    public int getNewUserID() {
+		int userID = userDAOImpl.selectUserID();
+		return userID + 1;
+	}
+
+	public void addUser(User u) {
+		userDAOImpl.insertUser(u);
+	}
+
+	public boolean saveUser(User u) {
+		boolean toReturn = userDAOImpl.updateUser(u);
+
+		return toReturn;
+	}
+
+	public void removeUser(User u) {
+		userDAOImpl.deleteUser(u.getUserID());
+	}
+
+	public boolean verifyPassword(String email, String password) {
+		int userID = emailDAOImpl.selectUserIDByEmail(email);
+		User u = userDAOImpl.selectUserByID(userID);
+
+		if(password.equals(u.getPassword()))
+		    return true;
+		return false;
+	}
+	//Email methods
+	public boolean addEmail(String email, int userID) {
+		Email e = new Email(userID, email);
+		emailDAOImpl.insertEmail(e);
+		return true;
+	}
+
+}
