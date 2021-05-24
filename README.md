@@ -2,13 +2,13 @@
 
 ## Project Description
 
-Here goes your awesome project description!
+Employee Reimbursement provides companies with the tools they need to track and manage reimbursing of employees' company expenditures. Individual employees can login to the site and use submit reimbursement requests specifying how much is due as well as provide a detailed description of the nature of the expense. Financial managers can then simply login and, on a case by case basis, determine what which reimbursements to provide or deny.
 
 ## Technologies Used
 
-* Java Servlet
-* Tech 2 - version 2.0
-* Tech 3 - version 3.0
+* Java Servlet - version 4.0.1
+* Tomcat - version 8.5.65
+* PostgreSQL - version 10.16
 
 ## Features
 
@@ -19,7 +19,7 @@ List of features ready and TODOs for future development
 
 To-do list:
 * Add a password hashing feature to make the site more secure.
-* Give users the option to upload a document or picture of their receipt
+* Give employees the option to upload a document or picture of their receipt.
 
 ## Getting Started
    
