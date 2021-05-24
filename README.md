@@ -1,7 +1,4 @@
-# TeamFiveIsAlive
-Ancel Nabholz and James Sasser
-
-# PROJECT NAME
+# Employee Reimbursement
 
 ## Project Description
 
